@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="0" http-equiv="Expires"/>
+<meta content="Professional horticulture management tool for Lukas Nursery: chemical treatments, scouting, diagnostics, and spray calculations" name="description"/>
+<meta content="#33a9dc" name="theme-color"/>
+<link href="manifest.json" rel="manifest"/>
+<link href="icon-512.png" rel="icon" type="image/png"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="VINE" name="apple-mobile-web-app-title"/>
+<title>VINE</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="style.css?v=1764400001" rel="stylesheet"/>
+<link href="style.css?v=1764400001" rel="stylesheet"/>
+</head>
+<body>
+<header>
+<img alt="Lukas Nursery Logo" class="lukas-logo" src="lukas-logo.png"/>
+<h1>VINE</h1>
+<div class="botanical-flourish"></div>
+<p class="tagline">Virtual Intelligence for Nursery Excellence</p>
+</header>
+<nav class="top-nav">
+<button class="home-chip nav-active" data-page="home" onclick="showPage('home')">
+      Home
+    </button>
+<button class="menu-chip" onclick="openToolsMenu()" type="button">
+      Menu
+    </button>
+</nav>
+<div aria-hidden="true" class="tools-menu-overlay" id="toolsMenuOverlay">
+<div class="tools-menu-backdrop" onclick="closeToolsMenu()"></div>
+<div aria-labelledby="toolsMenuTitle" aria-modal="true" class="tools-menu-panel" role="dialog">
+<div class="tools-menu-header">
+<h2 id="toolsMenuTitle">Tools Menu</h2>
+<button aria-label="Close tools menu" class="tools-menu-close" onclick="closeToolsMenu()" type="button">
+          ×
+        </button>
+</div>
+<div class="tools-menu-body">
+<section class="tools-menu-section">
+<h3>Core Tools</h3>
+<div class="tools-menu-list">
+<button class="tools-menu-item" onclick="navigateFromMenu('mix')" type="button">Mix Calculator</button>
+<button class="tools-menu-item" onclick="navigateFromMenu('granular')" type="button">Granular Helper</button>
+<button class="tools-menu-item" onclick="navigateFromMenu('diagnostics')" type="button">Diagnostics</button>
+</div>
+</section>
+<section class="tools-menu-section">
+<h3>Scouting &amp; Treatments</h3>
+<div class="tools-menu-list">
+<button class="tools-menu-item" onclick="navigateFromMenu('logs')" type="button">Logs</button>
+<button class="tools-menu-item" onclick="navigateFromMenu('rotation')" type="button">Rotation Schedule</button>
+</div>
+</section>
+<section class="tools-menu-section">
+<h3>Review &amp; Library</h3>
+<div class="tools-menu-list">
+<button class="tools-menu-item" onclick="navigateFromMenu('review')" type="button">Log Review</button>
+<button class="tools-menu-item" onclick="navigateFromMenu('chemicals')" type="button">Chemical Library</button>
+</div>
+</section>
+</div>
+</div>
+</div>
+<main id="content">
+<h2>Welcome</h2>
+<p>Select a section above to begin.</p>
+</main>
+<footer class="app-footer">
+<p>Label is the law. Always follow the product label. Internal use only.</p>
+</footer>
+
+<script src="chemicals.js?v=1764400003"></script>
+<script src="plants.js?v=1764400004"></script>
+<script src="plant-utils.js?v=1764400007"></script>
+<script src="script.js?v=1764400010"></script>
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('Service Worker registered successfully:', registration.scope);
+          })
+          .catch(error => {
+            console.log('Service Worker registration failed:', error);
+          });
+      });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,1940 @@
+/* ====== CSS VARIABLES - VINE BRAND SYSTEM ====== */
+:root {
+  /* Sunset Gradient Colors (from logo) */
+  --color-sky-blue: #33a9dc;
+  --color-coral: #f47a60;
+  --color-golden: #f5b841;
+
+  /* Primary Brand Colors */
+  --color-primary: #1a1a1a;
+  /* Deep black for text/headings */
+  --color-accent: #f5b841;
+  /* Golden yellow accent */
+  --color-tropical-blue: #33a9dc;
+  /* Sky blue from gradient */
+
+  /* Legacy variable aliases (for backwards compatibility) */
+  --color-gold: #f5b841;
+  /* Alias for --color-golden */
+  --color-orange: #f47a60;
+  /* Alias for --color-coral */
+
+  /* Background & Surface Colors */
+  --color-bg: #f5f3ee;
+  /* Warm cream background */
+  --color-card: #ffffff;
+  /* White for contrast */
+  --color-surface: #faf9f6;
+  /* Lighter cream surface */
+
+  /* Text Colors */
+  --color-text: #1a1a1a;
+  /* Deep black */
+  --color-muted: #6b6154;
+  /* Warm muted brown */
+  --color-light-text: #8a8174;
+  /* Lighter muted text */
+
+  /* Border & Accent Colors */
+  --color-border: #d4cfc4;
+  /* Warm neutral border */
+  --color-border-light: #e8e5dd;
+  /* Lighter border */
+  --color-border-dotted: #1a1a1a;
+  /* Black for vintage dotted borders */
+
+  /* Utility Colors */
+  --color-disabled: #e8e5dd;
+  --color-disabled-text: #a8a39a;
+
+  /* Gradient (Sunset) */
+  --gradient-sunset: linear-gradient(180deg, #33a9dc 0%, #f47a60 50%, #f5b841 100%);
+  --gradient-sunset-horizontal: linear-gradient(90deg, #33a9dc 0%, #f47a60 50%, #f5b841 100%);
+  --gradient-liquid-sunset: 
+    radial-gradient(circle at 12% 0%, rgba(255, 255, 255, 0.18) 0, rgba(255, 255, 255, 0) 55%),
+    radial-gradient(circle at 82% 18%, rgba(244, 122, 96, 0.35) 0, rgba(244, 122, 96, 0) 60%),
+    linear-gradient(180deg, #2a7aa0 0%, #d87a5a 52%, #f0c97a 100%);
+
+
+  /* Shadows with warm tones */
+  --shadow-sm: 0 2px 4px rgba(107, 97, 84, 0.08);
+  --shadow-md: 0 4px 12px rgba(107, 97, 84, 0.12);
+  --shadow-lg: 0 8px 24px rgba(107, 97, 84, 0.16);
+
+  /* Border Radius */
+  --border-radius: 8px;
+  --border-radius-pill: 999px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ====== ANIMATIONS ====== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  50% {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-1deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes elegantFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes goldenGlow {
+
+  0%,
+  100% {
+    text-shadow:
+      0 2px 8px rgba(255, 255, 255, 0.4),
+      0 4px 16px rgba(245, 184, 65, 0.3),
+      0 0 20px rgba(245, 184, 65, 0.2);
+  }
+
+  50% {
+    text-shadow:
+      0 2px 8px rgba(255, 255, 255, 0.6),
+      0 4px 20px rgba(245, 184, 65, 0.5),
+      0 0 30px rgba(245, 184, 65, 0.4),
+      0 0 40px rgba(245, 184, 65, 0.2);
+  }
+}
+
+@keyframes flourishExpand {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* ====== GLOBAL STYLES ====== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 0;
+  background: var(--gradient-liquid-sunset);
+  background-attachment: fixed;
+  color: var(--color-text);
+  line-height: 1.5;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+/* ====== HEADER - TRANSPARENT (GRADIENT FROM BODY) ====== */
+header {
+  background: transparent;
+  color: var(--color-primary);
+  padding: 1.75rem 1rem 1.25rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: slideDown 0.6s ease-out;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+header::before { content: none !important; }
+
+.lukas-logo {
+  display: block;
+  margin: 0 auto 1rem;
+  height: 200px;
+  width: auto;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+  animation: fadeIn 0.8s ease-out;
+}
+
+header h1 {
+  font-family: 'Cormorant', serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.08em;
+  color: #111111;
+  text-shadow: none;
+  position: relative;
+  z-index: 2;
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  @media not (forced-colors: active) {
+    header h1 {
+  font-family: 'Cormorant', serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.08em;
+  color: #111111;
+  text-shadow: none;
+  position: relative;
+  z-index: 2;
+}
+  }
+}
+
+@media (forced-colors: active) {
+  header {
+    animation: none;
+    box-shadow: none;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  header h1 {
+  font-family: 'Cormorant', serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.08em;
+  color: #111111;
+  text-shadow: none;
+  position: relative;
+  z-index: 2;
+}
+
+  .botanical-flourish {
+    animation: none;
+  }
+
+  .botanical-flourish::before {
+    background: CanvasText;
+  }
+
+  .botanical-flourish::after {
+    color: CanvasText;
+    text-shadow: none;
+    animation: none;
+  }
+
+  .lukas-logo {
+    animation: none;
+    filter: none;
+  }
+
+  header .tagline {
+    animation: none;
+    color: CanvasText;
+    text-shadow: none;
+    opacity: 1;
+  }
+}
+
+.botanical-flourish {
+  width: 120px;
+  height: 2px;
+  margin: 0.75rem auto 0.5rem;
+  position: relative;
+  z-index: 2;
+  animation: flourishExpand 1.2s ease-out 0.5s backwards;
+}
+
+.botanical-flourish::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gradient-sunset-horizontal);
+  opacity: 0.6;
+}
+
+.botanical-flourish::after {
+  content: '✦';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.7rem;
+  color: var(--color-golden);
+  text-shadow: 0 0 8px rgba(245, 184, 65, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Fade transition for content changes */
+#content {
+  /* Disable animations on the content container to prevent choppy
+     transitions. Without a transition property or view-transition name,
+     updates occur instantly without cross fades or slides. */
+  transition: none;
+  view-transition-name: none;
+}
+
+/* ====== SKELETON LOADERS ======
+   Skeleton screens provide a low-fidelity placeholder while content is loading.
+   They improve perceived performance and are recommended over spinners for
+   list/table loads that take more than ~500ms. For users who prefer reduced
+   motion, the shimmer animation will be disabled via @media query below. */
+.chem-skeleton {
+  margin-top: 1rem;
+}
+
+/* Individual skeleton line. Use custom widths and heights inline for variety. */
+.skeleton-line {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-disabled);
+  border-radius: 4px;
+}
+
+/* Shimmer effect across the skeleton line */
+.skeleton-line::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  height: 100%;
+  width: 150%;
+  background: linear-gradient(90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    rgba(255, 255, 255, 0) 100%);
+  animation: shimmer-move 1.2s infinite;
+}
+
+@keyframes shimmer-move {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+/* Respect reduced motion: pause the shimmer animation if users prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .skeleton-line::before {
+    animation: none;
+  }
+}
+
+/* ====== VIEW TRANSITION CUSTOMIZATIONS ======
+   Customize the View Transitions API animations for smoother page
+   transitions. We combine a gentle vertical slide with a fade using
+   consistent durations and easing functions on both the old and new
+   views. Longer durations and matching ease curves help eliminate the
+   choppiness seen in earlier implementations. */
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-slide-from-bottom {
+  from {
+    transform: translateY(24px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes vt-slide-to-top {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-24px);
+  }
+}
+
+/* Apply the custom animations to the content transition. By using the same
+   duration and easing for both fade and slide animations, the transition
+   appears fluid and cohesive. */
+::view-transition-old(content) {
+  animation:
+    vt-fade-out 280ms ease-in forwards,
+    vt-slide-to-top 280ms ease-in forwards;
+}
+
+::view-transition-new(content) {
+  animation:
+    vt-fade-in 280ms ease-out forwards,
+    vt-slide-from-bottom 280ms ease-out forwards;
+}
+
+/* Disable view transition animations entirely for users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(content),
+  ::view-transition-new(content) {
+    animation: none !important;
+  }
+}
+
+header .tagline {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0.85;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+  animation: fadeIn 1s ease-out 0.8s backwards;
+}
+
+/* ====== NAVIGATION BAR - VINTAGE BOTANICAL ====== */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0;
+  background: transparent;
+  border-bottom: none;
+}
+
+/* Floating Home/Menu pill aligned with the hero card */
+nav.top-nav {
+  position: sticky;
+  top: 0.5rem;
+  z-index: 50;
+
+  margin: 0 auto 1.25rem;
+  padding: 0.5rem 0.75rem;
+  width: calc(100% - 2.5rem);
+  max-width: 440px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+
+  background: linear-gradient(145deg,
+    rgba(255, 250, 243, 0.96),
+    rgba(254, 243, 231, 0.96));
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.22);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Keep buttons nicely centered inside the pill */
+nav.top-nav button {
+  flex: 1 1 0;
+  max-width: 180px;
+}
+
+
+nav button {
+  border: 2px solid var(--color-primary);
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--border-radius-pill);
+  background: var(--color-card);
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+nav button .btn-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(245, 184, 65, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+
+
+/* Home + Menu chip styles */
+nav .home-chip {
+  min-width: 96px;
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-card);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: box-shadow: 0 8px 22px rgba(15,23,42,0.22), 0 2px 6px rgba(15,23,42,0.10);;
+  font-weight: 700;
+}
+
+
+
+
+nav .home-chip .btn-icon {
+  margin-bottom: 0.25rem;
+}
+
+nav .home-chip span {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+/* Home button state colors */
+
+nav .menu-chip {
+  min-width: 96px;
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: #ffffff;
+  border-color: var(--color-primary);
+  box-shadow: box-shadow: 0 8px 22px rgba(15,23,42,0.22), 0 2px 6px rgba(15,23,42,0.10);;;
+  font-weight: 700;
+}
+
+/* Tools Menu overlay */
+.tools-menu-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s ease-out;
+}
+
+.tools-menu-overlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.tools-menu-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.24s ease-out;
+}
+
+.tools-menu-overlay.is-open .tools-menu-backdrop {
+  opacity: 1;
+}
+
+.tools-menu-panel {
+  position: relative;
+  background: var(--color-card);
+  border-radius: var(--border-radius);
+  padding: 1.5rem 1.25rem 1.5rem;
+  max-width: 440px;
+  width: calc(100% - 2.5rem);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border-light);
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(18px) scale(0.98);
+  transition: opacity 0.28s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+              transform 0.28s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  max-height: calc(100vh - 3rem);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.tools-menu-overlay.is-open .tools-menu-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.tools-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tools-menu-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.tools-menu-close {
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-primary);
+}
+
+.tools-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tools-menu-item {
+  width: 92%;
+  max-width: 340px;
+  margin: 0 auto;
+  border-radius: 999px;
+  border: none;
+  padding: 0.7rem 1.1rem;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, background 0.12s ease-out;
+  font-size: 0.98rem;
+  line-height: 1.3;
+}
+
+.tools-menu-item:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+@media (min-width: 768px) {
+  nav {
+    padding-inline: 2rem;
+  }
+
+  .tools-menu-panel {
+    width: 420px;
+  }
+}
+
+nav button:hover::before {
+  width: 300%;
+  height: 300%;
+}
+
+nav button:hover {
+  color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+}
+
+nav button:hover .btn-icon {
+  transform: scale(1.1);
+}
+
+nav button.nav-active {
+  background: var(--color-card);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  font-weight: 700;
+  animation: scaleIn 0.3s ease-out;
+}
+
+nav .home-chip.nav-active {
+  background: var(--color-gold);
+  color: var(--color-primary);
+  border-color: var(--color-gold);
+  box-shadow: box-shadow: 0 8px 22px rgba(15,23,42,0.22), 0 2px 6px rgba(15,23,42,0.10);;
+}
+
+nav button.nav-active:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 20px rgba(51, 169, 220, 0.4);
+}
+
+nav button:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 2px 4px rgba(107, 97, 84, 0.1);
+}
+
+nav button:active .btn-icon {
+  transform: scale(0.9);
+}
+
+/* ====== MAIN CONTENT CARD ====== */
+main#content {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 1.5rem auto;
+  background: var(--color-card);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  animation: slideUp 0.5s ease-out;
+  transition: box-shadow 0.4s ease;
+  border: 1px solid var(--color-border-light);
+}
+
+main h2 {
+  font-family: 'Cormorant', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--color-primary);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+main h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: var(--color-accent);
+  border-radius: 2px;
+}
+
+main h3 {
+  font-family: 'Cormorant', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-top: 1.5rem;
+}
+
+main p {
+  margin-top: 0;
+  line-height: 1.7;
+}
+
+/* ====== TEXT UTILITY CLASSES ====== */
+.muted {
+  color: var(--color-muted);
+}
+
+.subheading {
+  font-family: 'Cormorant', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.accent-text {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* ====== BUTTON UTILITY CLASSES ====== */
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn-primary,
+.btn-accent,
+.btn-warning {
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary,
+.btn-accent,
+.btn-warning {
+  transform: translateY(0);
+}
+
+.btn-primary::before,
+.btn-accent::before,
+.btn-warning::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.btn-primary:active::before,
+.btn-accent:active::before,
+.btn-warning:active::before {
+  animation: ripple 0.6s ease-out;
+}
+
+@keyframes ripple {
+  to {
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+  }
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #3a3a3a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(26, 26, 26, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(26, 26, 26, 0.2);
+}
+
+.btn-accent {
+  background: var(--color-accent);
+  color: var(--color-primary);
+}
+
+.btn-accent:hover {
+  background: var(--color-golden);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(245, 184, 65, 0.4);
+}
+
+.btn-accent:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(245, 184, 65, 0.3);
+}
+
+.btn-warning {
+  background: var(--color-orange);
+}
+
+.btn-warning:hover {
+  background: var(--color-coral);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(244, 122, 96, 0.4);
+}
+
+.btn-warning:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(249, 115, 22, 0.2);
+}
+
+.btn-disabled {
+  background: var(--color-disabled);
+  color: var(--color-disabled-text);
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: not-allowed;
+}
+
+/* ====== TABLE STYLES ====== */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border-top: 3px dotted var(--color-border-dotted);
+}
+
+.chem-table,
+.scout-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.chem-table thead,
+.scout-table thead {
+  background: rgba(245, 184, 65, 0.15);
+  border-bottom: 2px solid var(--color-accent);
+}
+
+.chem-table th,
+.chem-table td,
+.scout-table th,
+.scout-table td {
+  padding: 0.65rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.chem-table th,
+.scout-table th {
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+}
+
+.chem-table tr:nth-child(even) td,
+.scout-table tr:nth-child(even) td {
+  background: var(--color-surface);
+}
+
+/* ====== CHEMICAL SEARCH & FILTERS ====== */
+.chem-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.chem-filter-btn {
+  border-radius: var(--border-radius-pill);
+  border: 2px solid var(--color-border);
+  padding: 0.35rem 0.9rem;
+  background: var(--color-card);
+  font-size: 0.8rem;
+  color: var(--color-primary);
+  font-weight: 600;
+  transition: all var(--transition);
+  cursor: pointer;
+}
+
+.chem-filter-btn:hover {
+  border-color: var(--color-accent);
+  background: rgba(245, 184, 65, 0.1);
+  color: var(--color-primary);
+  transform: scale(1.05);
+  box-shadow: var(--shadow-sm);
+}
+
+.chem-filter-btn.active-filter {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+  animation: scaleIn 0.3s ease-out;
+  box-shadow: var(--shadow-md);
+}
+
+.chem-search-bar {
+  margin: 0.5rem 0;
+}
+
+.chem-search-bar input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border-radius: var(--border-radius-pill);
+  border: 2px solid var(--color-border);
+  font-size: 0.95rem;
+  transition: all var(--transition);
+  background: var(--color-card);
+}
+
+.chem-search-bar input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(245, 184, 65, 0.15);
+  transform: scale(1.01);
+}
+
+.chem-quick-results {
+  margin-top: 0.5rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background:
+    radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.18) 0, transparent 55%),
+    radial-gradient(circle at 100% 0, rgba(244, 185, 96, 0.22) 0, transparent 60%),
+    rgba(15, 23, 42, 0.38);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  padding: 0.75rem 0.75rem 0.5rem;
+  max-height: 320px;
+  overflow-y: auto;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+}
+
+.chem-quick-item {
+  padding: 0.35rem 0.4rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.chem-quick-item:hover {
+  background: var(--color-border-light);
+}
+
+.chem-quick-item-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.chem-quick-item-meta,
+.chem-quick-item-rate {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.chem-quick-detail {
+  margin-top: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--border-radius);
+  background: var(--color-surface);
+  border-left: 4px solid var(--color-accent);
+}
+
+.chem-library-toggle {
+  margin-top: 0.6rem;
+}
+
+.chem-library-hidden {
+  display: none;
+}
+
+/* ====== CHEMICAL DETAIL ROWS ====== */
+.chem-row {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.chem-row:hover {
+  background: var(--color-surface);
+  transform: translateX(4px);
+  box-shadow: inset -4px 0 12px rgba(245, 184, 65, 0.15);
+}
+
+.chem-detail-row {
+  display: none;
+  background: rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  animation: slideDown 0.4s ease-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.chem-detail-row.open {
+  display: table-row;
+  animation: slideDown 0.4s ease-out;
+  max-height: none;
+}
+
+.chem-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.chem-notes-panel {
+  background: rgba(244, 185, 36, 0.08);
+  padding: 1rem;
+  border-radius: 0.75rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(244, 185, 36, 0.45);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.35);
+}
+
+.chem-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.chem-fav-star {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 680px) {
+  .chem-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.chem-detail-inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.chem-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.chem-fav-btn {
+  background: transparent;
+  border: 2px solid var(--color-border);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--border-radius-pill);
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.chem-fav-btn:hover {
+  background: var(--color-surface);
+  border-color: var(--color-gold);
+  transform: scale(1.08);
+  box-shadow: 0 2px 8px rgba(244, 185, 36, 0.2);
+}
+
+.chem-fav-btn:active {
+  animation: pulse 0.5s ease;
+}
+
+.chem-to-mix-btn {
+  margin-top: 0.25rem;
+}
+
+.chem-notes {
+  margin-top: 0.25rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.legal-note {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+}
+
+/* ====== FORMS (MIX, DIAGNOSTICS, SCOUTING) ====== */
+.mix-form,
+.diag-form,
+.scout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.mix-form label,
+.diag-form label,
+.scout-form label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+}
+
+.mix-form select,
+.mix-form input,
+.diag-form input,
+.diag-form select,
+.diag-form textarea,
+.scout-form input,
+.scout-form select,
+.scout-form textarea {
+  padding: 0.6rem 0.85rem;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--color-border);
+  font-size: 0.95rem;
+  font-family: inherit;
+  background: var(--color-card);
+  transition: all var(--transition);
+}
+
+.mix-form select:focus,
+.mix-form input:focus,
+.diag-form input:focus,
+.diag-form select:focus,
+.diag-form textarea:focus,
+.scout-form input:focus,
+.scout-form select:focus,
+.scout-form textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(245, 184, 65, 0.15);
+  transform: scale(1.01);
+}
+
+.scout-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mix-chem-group {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+}
+
+.mix-chem-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.mix-chem-rate {
+  font-size: 0.8rem;
+}
+
+.mix-btn,
+.diag-btn,
+.scout-btn {
+  margin-top: 0.5rem;
+}
+
+.mix-result,
+.diag-result {
+  margin-top: 1rem;
+  padding: 1rem;
+  font-size: 0.9rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--color-accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.diag-result ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0;
+}
+
+.diag-result li {
+  padding: 0.5rem 0;
+  border-bottom: 1px dotted var(--color-border);
+}
+
+.diag-result li:last-child {
+  border-bottom: none;
+}
+
+.mix-add-btn {
+  margin-top: 0.5rem;
+}
+
+.mix-remove-btn {
+  background: var(--color-orange);
+  color: white;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+  transition: var(--transition);
+}
+
+.mix-remove-btn:hover {
+  background: var(--color-coral);
+  transform: scale(1.05);
+}
+
+/* ====== FOOTER - VINTAGE BOTANICAL ====== */
+.app-footer {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  margin-top: 3rem;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  border-top: 3px dotted var(--color-border-dotted);
+  background: var(--color-surface);
+  position: relative;
+}
+
+.app-footer::before {
+  content: '🦋';
+  position: absolute;
+  left: 50%;
+  top: -15px;
+  transform: translateX(-50%);
+  font-size: 1.5rem;
+  background: var(--color-surface);
+  padding: 0 0.5rem;
+}
+
+/* ====== ROTATION SCHEDULE ====== */
+.rotation-overview {
+  background: var(--color-surface);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+}
+
+.rotation-overview p {
+  margin: 0.5rem 0;
+}
+
+.rotation-recommendation {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-left: 4px solid var(--color-accent);
+  border-radius: var(--border-radius);
+  background: var(--color-surface);
+  transition: all var(--transition);
+  animation: slideIn 0.4s ease-out;
+}
+
+.rotation-recommendation:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-md);
+  border-left-color: var(--color-golden);
+}
+
+.rotation-recommendation.rotation-high {
+  border-left-color: var(--color-coral);
+  background: rgba(244, 122, 96, 0.08);
+}
+
+.rotation-recommendation.rotation-medium {
+  border-left-color: var(--color-golden);
+  background: rgba(245, 184, 65, 0.08);
+}
+
+.rotation-recommendation.rotation-info {
+  border-left-color: var(--color-tropical-blue);
+  background: rgba(51, 169, 220, 0.08);
+}
+
+.rotation-recommendation p {
+  margin: 0.5rem 0;
+}
+
+.rotation-recommendation ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.rotation-recommendation li {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+
+/* ====== LOG REVIEW ====== */
+.log-review-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+  border-bottom: 2px solid var(--color-border-light);
+}
+
+.log-toggle-btn {
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-muted);
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -3px;
+  position: relative;
+}
+
+.log-toggle-btn:hover {
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.log-toggle-btn.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  animation: slideDown 0.3s ease-out;
+}
+
+.log-review-search {
+  margin: 1rem 0;
+}
+
+.log-review-search input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--border-radius-pill);
+  font-size: 1rem;
+  font-family: inherit;
+  background: var(--color-card);
+}
+
+.log-review-search input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(245, 184, 65, 0.15);
+  transform: scale(1.01);
+  transition: all var(--transition);
+}
+
+.log-review-count {
+  padding: 0.75rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+}
+
+.log-review-count p {
+  margin: 0;
+}
+
+.log-review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.log-entry {
+  padding: 1rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius);
+  background: var(--color-surface);
+  transition: all 0.3s ease;
+  animation: slideUp 0.4s ease-out;
+}
+
+.log-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-accent);
+}
+
+.log-entry.treatment-entry {
+  border-left: 4px solid var(--color-coral);
+}
+
+.log-entry.scouting-entry {
+  border-left: 4px solid var(--color-tropical-blue);
+}
+
+.log-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.log-entry-header strong {
+  font-size: 1rem;
+}
+
+.log-entry-area {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.log-entry-details p {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.log-entry-details strong {
+  color: var(--color-accent);
+}
+
+.log-entry-details code {
+  display: block;
+  background: var(--color-surface);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  overflow-x: auto;
+  margin-top: 0.25rem;
+}
+
+/* ====== SEVERITY BADGES ====== */
+.severity-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--border-radius-pill);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.severity-badge.severity-high {
+  background: rgba(244, 122, 96, 0.15);
+  color: var(--color-coral);
+  border: 1px solid var(--color-coral);
+}
+
+.severity-badge.severity-medium {
+  background: rgba(245, 184, 65, 0.15);
+  color: var(--color-golden);
+  border: 1px solid var(--color-golden);
+}
+
+.severity-badge.severity-low {
+  background: rgba(51, 169, 220, 0.15);
+  color: var(--color-tropical-blue);
+  border: 1px solid var(--color-tropical-blue);
+}
+
+.severity-badge.severity-unknown {
+  background: rgba(212, 207, 196, 0.3);
+  color: var(--color-muted);
+  border: 2px dashed var(--color-border);
+  font-style: italic;
+}
+
+/* ====== ACCESSIBILITY - REDUCED MOTION ====== */
+@media (prefers-reduced-motion: reduce) {
+  header h1 {
+  font-family: 'Cormorant', serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.08em;
+  color: #111111;
+  text-shadow: none;
+  position: relative;
+  z-index: 2;
+}
+
+  .botanical-flourish {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .botanical-flourish::after {
+    animation: none;
+  }
+
+  .lukas-logo {
+    animation: none;
+  }
+
+  header .tagline {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  header {
+    animation: fadeIn 0.3s ease-out;
+  }
+}
+
+/* ====== RESPONSIVE TWEAKS ====== */
+@media (max-width: 600px) {
+  header h1 {
+  font-family: 'Cormorant', serif;
+  font-size: 2.6rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.08em;
+  color: #111111;
+  text-shadow: none;
+  position: relative;
+  z-index: 2;
+}
+
+  .lukas-logo {
+    height: 170px;
+  }
+
+  .botanical-flourish {
+    width: 80px;
+  }
+
+  main#content {
+    margin: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  nav button {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.65rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  nav button .btn-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  nav button span {
+    font-size: 0.7rem;
+  }
+
+  .chem-detail-inline {
+    grid-template-columns: 1fr;
+  }
+}
+/* ====== HOME BUTTON OVERRIDE (NO GRADIENT) ====== */
+nav.top-nav .nav-home-btn.nav-active {
+  background: var(--color-card);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  animation: none;
+}
+
+/*
+  Mix Calculator search-select styling. Each chemical row includes a search
+  input above a select dropdown to filter chemicals. This layout stacks
+  the input and select with a small gap and uses the app's color variables
+  for consistent theming.
+*/
+.mix-search-select {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.mix-search-select input,
+.mix-search-select select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+}
+
+@media (prefers-color-scheme: dark) {
+  .mix-search-select input,
+  .mix-search-select select {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    border-color: var(--color-border);
+  }
+}
+
+
+/* ====== LIQUID GLASS OVERHAUL - OPTION 1 (GLOBAL) ====== */
+
+/* Keep the liquid sunset gradient fixed for a subtle parallax feel */
+body {
+  background: var(--gradient-liquid-sunset);
+  background-attachment: fixed;
+}
+
+/* Main content card as a liquid glass panel */
+main#content {
+  background: rgba(255, 252, 247, 0.84);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow: 0 22px 55px rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+}
+
+/* Floating Home/Menu pill as frosted glass */
+nav.top-nav {
+  background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.82),
+      rgba(255, 245, 231, 0.9)
+    );
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.28);
+  backdrop-filter: blur(22px) saturate(1.25);
+  -webkit-backdrop-filter: blur(22px) saturate(1.25);
+}
+
+/* Home/Menu chips sit on top of glass, keep their strong identity */
+nav .home-chip {
+  background: rgba(245, 184, 65, 0.97);
+  box-shadow: box-shadow: 0 8px 22px rgba(15,23,42,0.22), 0 2px 6px rgba(15,23,42,0.10);;
+}
+
+nav .menu-chip {
+  background: rgba(0, 0, 0, 0.94);
+  box-shadow: box-shadow: 0 8px 22px rgba(15,23,42,0.22), 0 2px 6px rgba(15,23,42,0.10);;
+}
+
+/* Tools menu as a glass modal */
+.tools-menu-panel {
+  background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.96), rgba(255, 246, 235, 0.96));
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 26px 60px rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(26px) saturate(1.25);
+  -webkit-backdrop-filter: blur(26px) saturate(1.25);
+}
+
+/* Slightly deeper backdrop behind the modal for contrast */
+.tools-menu-backdrop {
+  background: radial-gradient(circle at top, rgba(15, 23, 42, 0.55), rgba(15, 23, 42, 0.82));
+}
+
+/* Form controls on translucent panels */
+main#content input,
+main#content select,
+main#content textarea {
+  background-color: rgba(255, 255, 255, 0.86);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+}
+
+/* Results + helper blocks as mini glass cards */
+.mix-result,
+.diag-result,
+.rotation-overview,
+.log-review-card,
+.chem-quick-results {
+  background: rgba(255, 252, 247, 0.9);
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 34px rgba(15, 23, 42, 0.25);
+}
+
+/* Chemical & scouting tables on translucent surfaces */
+.chem-table,
+.scout-table,
+.rotation-table,
+.log-table {
+  background: rgba(255, 252, 247, 0.9);
+}
+
+/* Footer as a subtle glass strip at the bottom */
+.app-footer {
+  background: linear-gradient(
+      180deg,
+      rgba(255, 252, 247, 0.4),
+      rgba(255, 252, 247, 0.9)
+    );
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.85);
+}
+
+
+/* Hero title mobile size override for Option 1 */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 2rem;
+  }
+}
+
+.tools-menu-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 0.5rem;
+  padding-right: 0.25rem;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.tools-menu-section-label {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.tools-menu-group-card {
+  padding: 0.85rem 0.85rem 0.9rem;
+  border-radius: 18px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.tools-menu-body::-webkit-scrollbar {
+  width: 4px;
+}
+.tools-menu-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.tools-menu-body::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.18);
+  border-radius: 999px;
+}
+
+/* Logs hub tabs */
+.logs-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.75rem 0 1rem;
+}
+
+.logs-tab-btn {
+  flex: 1;
+  border-radius: var(--border-radius-pill);
+  border: 2px solid var(--color-border);
+  padding: 0.4rem 0.9rem;
+  background: var(--color-card);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.logs-tab-btn:hover {
+  border-color: var(--color-accent);
+  background: rgba(245, 184, 65, 0.06);
+  box-shadow: var(--shadow-sm);
+}
+
+.logs-tab-btn.logs-tab-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.logs-body {
+  margin-top: 0.25rem;
+}
+
+/* Home quick links */
+.home-quick-links {
+  margin-top: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.home-quick-link {
+  width: 100%;
+  max-width: 380px;
+}
+
+.home-install-tip {
+  margin-top: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.home-tip-text {
+  font-size: 0.9rem;
+  color: #666666;
+}
