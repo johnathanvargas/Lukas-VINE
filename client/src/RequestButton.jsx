@@ -70,8 +70,9 @@ const RequestButton = () => {
 
   const handleSignIn = async () => {
     try {
-      // Redirect to Supabase Auth UI or use magic link
-      // For simplicity, using magic link authentication
+      // Simple magic link authentication for this minimal implementation
+      // For production, consider using Supabase Auth UI component:
+      // https://supabase.com/docs/guides/auth/auth-helpers/auth-ui
       const email = prompt('Enter your email for sign-in link:');
       if (!email) return;
 

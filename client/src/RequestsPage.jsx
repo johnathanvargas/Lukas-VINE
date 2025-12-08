@@ -420,6 +420,7 @@ const RequestsPage = () => {
                   {request.assigned_to && (
                     <div style={{ marginBottom: '10px', fontSize: '12px', color: '#666' }}>
                       <strong>Assigned to:</strong> {request.assigned_to}
+                      {/* TODO: For better UX, join with user profiles to display name/email */}
                     </div>
                   )}
 

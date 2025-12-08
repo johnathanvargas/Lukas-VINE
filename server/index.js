@@ -150,6 +150,9 @@ async function uploadImagesToStorage(files, requestId) {
 /**
  * Send notification webhook (if configured)
  * @param {Object} request - The request object
+ * 
+ * Note: Requires Node.js 18+ for native fetch API
+ * For Node.js < 18, install and import 'node-fetch'
  */
 async function sendNotification(request) {
   if (!NOTIFICATIONS_WEBHOOK_URL) {
@@ -470,23 +473,17 @@ app.patch('/api/admin/requests/:id', requireAdminAuth, async (req, res) => {
     }
 
     // Add comment if provided
+    // Note: Comments via API are disabled in this minimal implementation
+    // To enable, implement proper authentication middleware to get actual user_id
+    // For now, return comment in response for client to display
+    let commentAdded = null;
     if (comment && comment.trim()) {
-      // Note: In production, you'd want to get the actual user_id from auth
-      // For now, we'll use a system user or null
-      const { error: commentError } = await supabase
-        .from('request_comments')
-        .insert({
-          request_id: id,
-          user_id: assigned_to || '00000000-0000-0000-0000-000000000000', // Placeholder
-          user_name: 'System Admin',
-          comment: comment.trim(),
-          is_internal: false
-        });
-
-      if (commentError) {
-        console.error('Failed to add comment:', commentError);
-        // Continue anyway - update succeeded
-      }
+      commentAdded = {
+        text: comment.trim(),
+        timestamp: new Date().toISOString(),
+        note: 'Comment included but not persisted - implement authentication for comment persistence'
+      };
+      console.log('Comment received (not persisted):', comment.trim());
     }
 
     // Fetch updated request
@@ -505,7 +502,8 @@ app.patch('/api/admin/requests/:id', requireAdminAuth, async (req, res) => {
 
     res.json({
       message: 'Request updated successfully',
-      request: updatedRequest
+      request: updatedRequest,
+      comment: commentAdded
     });
 
   } catch (error) {
