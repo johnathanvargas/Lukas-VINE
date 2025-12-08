@@ -8,8 +8,8 @@
 <meta content="0" http-equiv="Expires"/>
 <meta content="Professional horticulture management tool for Lukas Nursery: chemical treatments, scouting, diagnostics, and spray calculations" name="description"/>
 <meta content="#33a9dc" name="theme-color"/>
-<link href="manifest.json" rel="manifest"/>
-<link href="icon-512.png" rel="icon" type="image/png"/>
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" href="./icon-512.png">
 <meta content="yes" name="apple-mobile-web-app-capable"/>
 <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
 <meta content="VINE" name="apple-mobile-web-app-title"/>
@@ -17,11 +17,10 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="style.css?v=1764400001" rel="stylesheet"/>
-<link href="style.css?v=1764400001" rel="stylesheet"/>
 </head>
 <body>
 <header>
-<img alt="Lukas Nursery Logo" class="lukas-logo" src="lukas-logo.png"/>
+<img alt="Lukas Nursery Logo" class="lukas-logo" src="./lukas-logo.png">
 <h1>VINE</h1>
 <div class="botanical-flourish"></div>
 <p class="tagline">Virtual Intelligence for Nursery Excellence</p>
@@ -77,14 +76,14 @@
 <p>Label is the law. Always follow the product label. Internal use only.</p>
 </footer>
 
-<script src="chemicals.js?v=1764400003"></script>
-<script src="plants.js?v=1764400004"></script>
-<script src="plant-utils.js?v=1764400007"></script>
-<script src="script.js?v=1764400010"></script>
+<script src="./chemicals.js?v=1764400003"></script>
+<script src="./plants.js?v=1764400004"></script>
+<script src="./plant-utils.js?v=1764400007"></script>
+<script src="./script.js?v=1764400010"></script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        navigator.serviceWorker.register('./sw.js')
           .then(registration => {
             console.log('Service Worker registered successfully:', registration.scope);
           })
