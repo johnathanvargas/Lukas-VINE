@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 
 console.log('🧪 VINE App Test Suite\n');
-console.log('=' .repeat(60));
+console.log('='.repeat(60));
 
 let passed = 0;
 let failed = 0;
