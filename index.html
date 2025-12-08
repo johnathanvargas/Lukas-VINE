@@ -127,6 +127,7 @@
   idlePrefetch('./chemicals.js');
   idlePrefetch('./plants.js');
   idlePrefetch('./plant-utils.js');
+  // Prefetch calculators.js for future refactoring; currently, CalculatorUtils is only exported to window and not used by main app code.
   idlePrefetch('./utils/calculators.js');
 })();
 </script>
