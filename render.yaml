@@ -1,0 +1,19 @@
+# Render service spec example. Edit to match whether you want a static site or a Node web service.
+
+services:
+  - type: static_site
+    name: lukas-vine-static
+    repo: https://github.com/johnathanvargas/Lukas-VINE
+    branch: main
+    buildCommand: ''
+    staticPublishPath: '/'
+
+# If you have a Node server, replace the above with a web service configuration:
+# services:
+#  - type: web
+#    name: lukas-vine-web
+#    env: node
+#    repo: https://github.com/johnathanvargas/Lukas-VINE
+#    branch: main
+#    buildCommand: 'npm install'
+#    startCommand: 'node server/index.js'
