@@ -1,6 +1,6 @@
 // Centralized cache version management for VINE PWA
 // Update this single value when you need to bust caches across the app
-const CACHE_VERSION = '35';
+const CACHE_VERSION = '36';
 
 // Generate timestamp-based build ID for development (can be overridden in production)
 const BUILD_ID = typeof BUILD_TIMESTAMP !== 'undefined' ? BUILD_TIMESTAMP : Date.now();
