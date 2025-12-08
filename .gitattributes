@@ -1,0 +1,23 @@
+# Mark binary files for Git LFS tracking
+# Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+
+# Excel and Office files
+*.xlsx binary
+*.xls binary
+*.xlsm binary
+*.docx binary
+*.pptx binary
+
+# Archives
+*.zip binary
+*.tar binary
+*.gz binary
+
+# PDFs
+*.pdf binary

@@ -76,10 +76,38 @@
 <p>Label is the law. Always follow the product label. Internal use only.</p>
 </footer>
 
-<script src="./chemicals.js?v=1764400003"></script>
-<script src="./plants.js?v=1764400004"></script>
-<script src="./plant-utils.js?v=1764400007"></script>
-<script src="./script.js?v=1764400010"></script>
+<script>
+(function() {
+  // Immediately load main controller asynchronously
+  var scriptTag = document.createElement('script');
+  scriptTag.src = './script.js?v=1764400010';
+  scriptTag.async = true;
+  document.head.appendChild(scriptTag);
+
+  // Idle-prefetch data assets using requestIdleCallback or timeout fallback
+  function idlePrefetch(src) {
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(function() {
+        var s = document.createElement('script');
+        s.src = src;
+        s.async = true;
+        document.head.appendChild(s);
+      }, { timeout: 2000 });
+    } else {
+      setTimeout(function() {
+        var s = document.createElement('script');
+        s.src = src;
+        s.async = true;
+        document.head.appendChild(s);
+      }, 1);
+    }
+  }
+
+  idlePrefetch('./chemicals.js?v=1764400003');
+  idlePrefetch('./plants.js?v=1764400004');
+  idlePrefetch('./plant-utils.js?v=1764400007');
+})();
+</script>
 <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {

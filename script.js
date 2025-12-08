@@ -18,6 +18,47 @@ if ('serviceWorker' in navigator) {
   });
 }
 
+// Lazy-load helper functions for on-demand loading of data assets
+function _loadScript(src) {
+  return new Promise((resolve, reject) => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve(src);
+      return;
+    }
+    const s = document.createElement('script');
+    s.src = src;
+    s.async = true;
+    s.onload = () => resolve(src);
+    s.onerror = (e) => reject(new Error('Failed to load ' + src));
+    document.head.appendChild(s);
+  });
+}
+
+function ensureChemicalsAvailable() {
+  if (typeof window.chemicals !== 'undefined' && Array.isArray(window.chemicals)) {
+    return Promise.resolve();
+  }
+  return _loadScript('./chemicals.js?v=1764400003');
+}
+
+function ensurePlantsAvailable() {
+  if (typeof window.PlantUtils !== 'undefined') {
+    return Promise.resolve();
+  }
+  return _loadScript('./plants.js?v=1764400004')
+    .then(() => {
+      if (typeof window.PlantUtils === 'undefined') {
+        return _loadScript('./plant-utils.js?v=1764400007').catch(()=>{});
+      }
+    })
+    .catch(()=>{});
+}
+
+function showLoadingTarget(el, message = 'Loading…') {
+  if (!el) return;
+  el.innerHTML = `<p class="muted">${message}</p>`;
+}
+
 function installPWA() {
   if (!deferredPrompt) {
     alert('App is already installed or installation is not available on this device.');
@@ -78,6 +119,8 @@ let lastMixCalc = null;
 let pendingTreatmentFromMix = null;
 
 async function populatePlantSelect(selectId, searchInputId) {
+  await ensurePlantsAvailable().catch(() => { console.warn('Plant master failed to load'); });
+
   const select = document.getElementById(selectId);
   if (!select) return;
   if (!window.PlantUtils || !PlantUtils.getDropdownOptions) return;
@@ -608,6 +651,15 @@ function toggleChemicalDetail(id) {
 
 // ====== QUICK RESULTS (SEARCH-FIRST VIEW) ======
 function renderChemicalQuickResults(filterTerm = "") {
+  if (typeof window.chemicals === 'undefined') {
+    const container = document.getElementById('chemQuickResults');
+    showLoadingTarget(container, 'Loading chemical library…');
+    ensureChemicalsAvailable()
+      .then(() => renderChemicalQuickResults(filterTerm))
+      .catch(() => { if (container) container.innerHTML = '<p>Unable to load chemical data.</p>'; });
+    return;
+  }
+
   const container = document.getElementById('chemQuickResults');
   if (!container) return;
 
@@ -690,6 +742,15 @@ document.addEventListener('keydown', function (evt) {
 
 // ====== MIX CALCULATOR (DYNAMIC MULTI-CHEMICAL + COVERAGE) ======
 function renderMixCalculator() {
+  if (typeof window.chemicals === 'undefined') {
+    const content = document.getElementById('content');
+    showLoadingTarget(content, 'Loading chemical data for Mix Calculator…');
+    ensureChemicalsAvailable()
+      .then(() => renderMixCalculator())
+      .catch(() => { if (content) content.innerHTML = '<p>Failed to load chemical data.</p>'; });
+    return;
+  }
+
   const content = document.getElementById('content');
 
   // Build a sorted list of non‑granular chemicals for the Mix Calculator dropdown.
@@ -1902,6 +1963,17 @@ const moaGroups = {
 };
 
 function analyzeChemicalUsage() {
+  if (typeof window.chemicals === 'undefined') {
+    console.warn('analyzeChemicalUsage: chemicals not loaded; returning empty analysis');
+    return {
+      recentlyUsed: {},
+      byMOA: {},
+      byIssueType: {},
+      totalApplications: 0,
+      dateRange: { earliest: null, latest: null }
+    };
+  }
+
   const treatmentEntries = getTreatmentEntries();
   const scoutingEntries = getScoutingEntries();
   
