@@ -131,6 +131,18 @@ CREATE POLICY "Admins can view all treatment logs"
 -- TRIGGERS FOR AUTOMATIC UPDATED_AT
 -- =========================================================
 
+-- Note: This migration depends on the update_updated_at_column function
+-- created in 001_create_requests.sql. Ensure that migration is run first.
+-- If the function doesn't exist, you can create it with:
+--
+-- CREATE OR REPLACE FUNCTION update_updated_at_column()
+-- RETURNS TRIGGER AS $$
+-- BEGIN
+--   NEW.updated_at = NOW();
+--   RETURN NEW;
+-- END;
+-- $$ LANGUAGE plpgsql;
+
 -- Use the existing update_updated_at_column function
 -- (created in 001_create_requests.sql)
 DROP TRIGGER IF EXISTS update_treatment_logs_updated_at ON treatment_logs;

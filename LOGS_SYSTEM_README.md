@@ -414,7 +414,34 @@ CREATE POLICY "Admins can view all treatment logs"
   );
 ```
 
-### 2. Input Validation
+### 2. Employee ID Security
+
+**IMPORTANT**: The server API endpoints currently accept `employee_id` from the request body for flexibility. However, for production use:
+
+- ✅ **Recommended**: Client-side components automatically use `auth.uid()` from the authenticated session
+- ✅ **Client direct submissions**: Use the React components which handle authentication properly
+- ⚠️ **Server API calls**: If calling the server endpoints directly, implement JWT validation middleware to extract `employee_id` from the authenticated token rather than accepting it from the request body
+
+To enhance security, add JWT validation middleware:
+```javascript
+// Example middleware to extract employee_id from JWT
+async function extractEmployeeFromToken(req, res, next) {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+  if (error || !user) {
+    return res.status(401).json({ error: 'Invalid token' });
+  }
+  
+  req.employee_id = user.id;
+  next();
+}
+```
+
+### 3. Input Validation
 
 Both endpoints validate:
 - Required fields
@@ -423,7 +450,7 @@ Both endpoints validate:
 - File types and sizes
 - UUID formats
 
-### 3. Storage Security
+### 4. Storage Security
 
 Photos use the same storage bucket and policies as the requests system. Ensure:
 - Authenticated uploads are restricted to user's own folder

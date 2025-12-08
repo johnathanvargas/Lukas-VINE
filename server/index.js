@@ -589,6 +589,10 @@ app.post('/api/admin/treatment-logs', requireAdminAuth, upload.array('photos', 5
     // In this minimal implementation, we'll set it to null and let client-side handle it
     // OR we can extract it from JWT if implementing proper auth middleware
     // For now, using service_role means we bypass RLS, so we set a placeholder
+    // SECURITY NOTE: When calling this endpoint directly from client, employee_id
+    // should be extracted from authenticated session (JWT) on the server side,
+    // not accepted from request body. This prevents users from submitting logs
+    // as other employees. The current implementation assumes server-side use only.
     const employee_id = req.body.employee_id || null;
 
     // Insert treatment log
@@ -830,6 +834,10 @@ app.post('/api/admin/scouting-logs', requireAdminAuth, upload.array('photos', 5)
     }
 
     // For server-side submission, we need employee_id from authentication
+    // SECURITY NOTE: When calling this endpoint directly from client, employee_id
+    // should be extracted from authenticated session (JWT) on the server side,
+    // not accepted from request body. This prevents users from submitting logs
+    // as other employees. The current implementation assumes server-side use only.
     const employee_id = req.body.employee_id || null;
 
     // Insert scouting log
