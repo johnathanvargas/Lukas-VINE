@@ -859,14 +859,6 @@ function renderMixCalculator() {
 function renderMixCalculatorContent(targetEl) {
   if (!targetEl) return;
 
-  if (typeof window.chemicals === 'undefined') {
-    showLoadingTarget(targetEl, 'Loading chemical data for Mix Calculator…');
-    ensureChemicalsAvailable()
-      .then(() => renderMixCalculatorContent(targetEl))
-      .catch(() => { if (targetEl) targetEl.innerHTML = '<p>Failed to load chemical data.</p>'; });
-    return;
-  }
-
   // Build a sorted list of non‑granular chemicals for the Mix Calculator dropdown.
   // Store both the raw data and the HTML options string globally so that
   // they can be reused when filtering via the search inputs.
