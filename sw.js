@@ -8,6 +8,7 @@ const urlsToCache = [
   '/lukas-logo.png',
   '/style.css',
   '/script.js',
+  '/calculators-utils.js',
   '/chemicals.js',
   '/plants.js',
   '/plant-utils.js',
