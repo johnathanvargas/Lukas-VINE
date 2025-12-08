@@ -10,23 +10,48 @@ window.addEventListener('beforeinstallprompt', (e) => {
   }
 });
 
-// Listen for service worker updates and reload automatically
+// Listen for service worker updates and provide user notification
 if ('serviceWorker' in navigator) {
+  let refreshing = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
-    // Service worker has been updated, reload to show new content
-    window.location.reload();
+    // Prevent multiple reloads
+    if (refreshing) return;
+    refreshing = true;
+    
+    // Show a less disruptive notification that an update is available
+    console.log('Service worker updated. New content is available.');
+    
+    // Only auto-reload if user hasn't entered any data
+    // Check if there are unsaved changes in localStorage
+    const hasLogs = localStorage.getItem('treatmentLogs') || localStorage.getItem('scoutingLogs');
+    
+    if (!hasLogs) {
+      // Safe to reload - no user data to lose
+      window.location.reload();
+    } else {
+      // Let user know update is ready but don't force reload
+      const updateBanner = document.createElement('div');
+      updateBanner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#33a9dc;color:white;padding:12px;text-align:center;z-index:10000;box-shadow:0 2px 4px rgba(0,0,0,0.2);';
+      updateBanner.innerHTML = 'New version available! <button onclick="window.location.reload()" style="background:white;color:#33a9dc;border:none;padding:6px 12px;margin-left:12px;border-radius:4px;cursor:pointer;font-weight:600;">Refresh Now</button>';
+      document.body.insertBefore(updateBanner, document.body.firstChild);
+    }
   });
 }
 
 // Lazy-load helper functions for on-demand loading of data assets
 function _loadScript(src) {
   return new Promise((resolve, reject) => {
-    if (document.querySelector(`script[src="${src}"]`)) {
+    // Add cache buster for development
+    const cacheBustSrc = src.includes('?') ? src : src + '?v=' + Date.now();
+    
+    // Check if already loaded (check base URL without query params)
+    const baseUrl = src.split('?')[0];
+    if (document.querySelector(`script[src^="${baseUrl}"]`)) {
       resolve(src);
       return;
     }
     const s = document.createElement('script');
-    s.src = src;
+    s.src = cacheBustSrc;
     s.async = true;
     s.onload = () => resolve(src);
     s.onerror = (e) => reject(new Error('Failed to load ' + src));
@@ -38,17 +63,17 @@ function ensureChemicalsAvailable() {
   if (typeof window.chemicals !== 'undefined' && Array.isArray(window.chemicals)) {
     return Promise.resolve();
   }
-  return _loadScript('./chemicals.js?v=1764400003');
+  return _loadScript('./chemicals.js');
 }
 
 function ensurePlantsAvailable() {
   if (typeof window.PlantUtils !== 'undefined') {
     return Promise.resolve();
   }
-  return _loadScript('./plants.js?v=1764400004')
+  return _loadScript('./plants.js')
     .then(() => {
       if (typeof window.PlantUtils === 'undefined') {
-        return _loadScript('./plant-utils.js?v=1764400007').catch(()=>{});
+        return _loadScript('./plant-utils.js').catch(()=>{});
       }
     })
     .catch(()=>{});
