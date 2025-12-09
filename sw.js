@@ -3,18 +3,18 @@ importScripts('./cache-version.js');
 
 const CACHE_NAME = `lukas-hort-v${self.VINE_CACHE_VERSION || '35'}`;
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/lukas-logo.png',
-  '/style.css',
-  '/script.js',
-  '/calculators-utils.js',
-  '/chemicals.js',
-  '/plants.js',
-  '/plant-utils.js',
-  '/plants.json',
-  '/cache-version.js',
-  '/icon-512.png',
+  './',
+  './index.html',
+  './lukas-logo.png',
+  './style.css',
+  './script.js',
+  './calculators-utils.js',
+  './chemicals.js',
+  './plants.js',
+  './plant-utils.js',
+  './plants.json',
+  './cache-version.js',
+  './icon-512.png',
   'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cormorant:wght@400;500;600;700&display=swap'
 ];
 
@@ -48,7 +48,7 @@ self.addEventListener('fetch', event => {
         const copy = res.clone();
         caches.open(CACHE_NAME).then(cache => cache.put(req, copy));
         return res;
-      }).catch(() => caches.match(req).then(cached => cached || caches.match('/index.html')))
+      }).catch(() => caches.match(req).then(cached => cached || caches.match('./index.html')))
     );
     return;
   }
