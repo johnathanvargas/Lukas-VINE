@@ -1,0 +1,7 @@
+// Example Prisma schema snippet — adapt to your full prisma schema file.
+model Item {
+  id          String   @id @default(uuid())
+  // ... other fields ...
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
