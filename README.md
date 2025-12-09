@@ -101,6 +101,24 @@ All endpoints require `X-Admin-API-Key` header if `ADMIN_API_KEY` is configured.
 - [LOGS_SYSTEM_README.md](LOGS_SYSTEM_README.md) - Complete guide for treatment and scouting logs system
 - [TESTING_SUMMARY.md](TESTING_SUMMARY.md) - Testing documentation
 
+## Deployment
+
+### GitHub Pages PWA Deployment
+
+VINE is deployed as a Progressive Web App (PWA) on GitHub Pages at: https://johnathanvargas.github.io/Lukas-VINE/
+
+**Recent PWA Fix (December 2025):**
+The app manifest and service worker have been updated to use relative paths that work correctly when hosted on GitHub Pages. This fixes an issue where installing the PWA to iOS home screen would result in a 404 page.
+
+**For iOS Users:**
+If you previously installed VINE to your home screen before this fix, you'll need to reinstall it:
+1. Remove the existing app from your home screen (long-press the icon and select "Remove App")
+2. Clear Safari website data: Settings → Safari → Advanced → Website Data → find "johnathanvargas.github.io" and swipe to delete
+3. Visit https://johnathanvargas.github.io/Lukas-VINE/ in Safari
+4. Tap the Share button and select "Add to Home Screen"
+
+The app should now open correctly when launched from your home screen.
+
 ## Security
 
 - **Never expose** `SUPABASE_SERVICE_ROLE_KEY` in client-side code
