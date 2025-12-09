@@ -9,6 +9,7 @@ const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY
 
 if (!SUPABASE_URL) {
   console.error('Missing SUPABASE_URL in environment variables')
+  throw new Error('SUPABASE_URL is required')
 }
 
 const keyToUse = SUPABASE_SERVICE_ROLE_KEY || SUPABASE_ANON_KEY
