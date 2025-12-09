@@ -13,6 +13,8 @@ VINE includes the following integrated systems:
 
 ## Environment Variables
 
+**IMPORTANT:** Example env files have been sanitized in this repository. If you previously committed real keys, rotate them immediately and follow the instructions in SECRETS_FOUND.md.
+
 The following environment variables are required for the integrated systems:
 
 ### Server Environment Variables (in `server/.env`):

@@ -14,6 +14,10 @@ npm-debug.log*
 .env
 .env.local
 
+# Local env files
+server/.env
+client/.env.local
+
 # IDE
 .vscode/
 .idea/
