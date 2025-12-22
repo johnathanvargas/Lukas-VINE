@@ -1,0 +1,27 @@
+{
+  "name": "@lukas-vine/schema",
+  "version": "1.0.0",
+  "description": "Prisma schema and database utilities for Lukas-VINE",
+  "main": "index.js",
+  "scripts": {
+    "db:migrate": "prisma migrate dev",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "db:seed": "ts-node prisma/seed.ts",
+    "db:studio": "prisma studio",
+    "build": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.1"
+  },
+  "devDependencies": {
+    "prisma": "^5.7.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.6"
+  },
+  "prisma": {
+    "schema": "prisma/schema.prisma",
+    "seed": "ts-node prisma/seed.ts"
+  }
+}

@@ -5,6 +5,8 @@ package-lock.json
 # Build outputs
 dist/
 build/
+.next/
+out/
 
 # Logs
 *.log
@@ -13,10 +15,17 @@ npm-debug.log*
 # Environment variables
 .env
 .env.local
+.env.production
+.env.development
 
 # Local env files
 server/.env
 client/.env.local
+apps/web/.env.local
+apps/web/.env
+
+# Prisma
+packages/schema/node_modules/.prisma/
 
 # IDE
 .vscode/
@@ -37,3 +46,7 @@ temp/
 # Test coverage
 coverage/
 .nyc_output/
+
+# Docker volumes
+postgres_data/
+redis_data/

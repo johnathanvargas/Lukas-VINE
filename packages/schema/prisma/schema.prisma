@@ -1,0 +1,194 @@
+// Prisma schema for Lukas-VINE
+// Supabase-compatible PostgreSQL setup
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model (auth pending - nullable user_id for now)
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  tasks     Task[]
+  projects  Project[]
+  requests  Request[]
+
+  @@map("users")
+}
+
+// Projects organize tasks
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  color       String?  @default("#3b82f6")
+  userId      String?  @map("user_id")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user     User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  sections Section[]
+  tasks    Task[]
+
+  @@map("projects")
+}
+
+// Sections within projects (optional grouping)
+model Section {
+  id        String   @id @default(uuid())
+  name      String
+  projectId String   @map("project_id")
+  order     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+
+  @@map("sections")
+}
+
+// Tasks - core model
+model Task {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  dueDate     DateTime? @map("due_date")
+  priority    Int       @default(1) // 1=low, 2=medium, 3=high, 4=urgent
+  completed   Boolean   @default(false)
+  userId      String?   @map("user_id")
+  projectId   String?   @map("project_id")
+  sectionId   String?   @map("section_id")
+  order       Int       @default(0)
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
+
+  user      User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  project   Project?    @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  section   Section?    @relation(fields: [sectionId], references: [id], onDelete: SetNull)
+  labels    TaskLabel[]
+  reminders Reminder[]
+
+  @@map("tasks")
+}
+
+// Labels for categorizing tasks
+model Label {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  color     String   @default("#6b7280")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  tasks TaskLabel[]
+
+  @@map("labels")
+}
+
+// Junction table for many-to-many tasks/labels
+model TaskLabel {
+  taskId  String @map("task_id")
+  labelId String @map("label_id")
+
+  task  Task  @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  label Label @relation(fields: [labelId], references: [id], onDelete: Cascade)
+
+  @@id([taskId, labelId])
+  @@map("task_labels")
+}
+
+// Reminders for tasks
+model Reminder {
+  id        String   @id @default(uuid())
+  taskId    String   @map("task_id")
+  remindAt  DateTime @map("remind_at")
+  sent      Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  task Task @relation(fields: [taskId], references: [id], onDelete: Cascade)
+
+  @@map("reminders")
+}
+
+// Request-for-diagnosis system (existing feature)
+model Request {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  status      String   @default("pending") // pending, in_progress, resolved
+  priority    Int      @default(2)
+  userId      String?  @map("user_id")
+  plantName   String?  @map("plant_name")
+  symptoms    String?
+  imageUrl    String?  @map("image_url")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("requests")
+}
+
+// Plant database for diagnostics
+model Plant {
+  id              String   @id @default(uuid())
+  commonName      String   @map("common_name")
+  scientificName  String?  @map("scientific_name")
+  family          String?
+  description     String?
+  growingZones    String?  @map("growing_zones")
+  lightRequirement String? @map("light_requirement")
+  waterRequirement String? @map("water_requirement")
+  soilType        String?  @map("soil_type")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  diagnosticRecords DiagnosticRecord[]
+
+  @@map("plants")
+}
+
+// Chemicals/treatments database
+model Chemical {
+  id             String   @id @default(uuid())
+  name           String   @unique
+  type           String? // fungicide, insecticide, herbicide, fertilizer
+  activeIngredient String? @map("active_ingredient")
+  description    String?
+  applicationRate String? @map("application_rate")
+  safetyNotes    String?  @map("safety_notes")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  diagnosticRecords DiagnosticRecord[]
+
+  @@map("chemicals")
+}
+
+// Diagnostic records linking symptoms to plants and recommended treatments
+model DiagnosticRecord {
+  id               String   @id @default(uuid())
+  plantId          String   @map("plant_id")
+  symptoms         String // comma-separated or JSON
+  diagnosis        String
+  recommendedAction String  @map("recommended_action")
+  chemicalId       String?  @map("chemical_id")
+  severity         String? // low, medium, high
+  notes            String?
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  plant    Plant     @relation(fields: [plantId], references: [id], onDelete: Cascade)
+  chemical Chemical? @relation(fields: [chemicalId], references: [id], onDelete: SetNull)
+
+  @@map("diagnostic_records")
+}

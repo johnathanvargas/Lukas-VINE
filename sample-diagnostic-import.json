@@ -1,0 +1,25 @@
+{
+  "plants": [
+    {
+      "commonName": "Pepper",
+      "scientificName": "Capsicum annuum",
+      "family": "Solanaceae",
+      "description": "Popular vegetable crop",
+      "growingZones": "3-11",
+      "lightRequirement": "Full sun",
+      "waterRequirement": "Regular watering",
+      "soilType": "Well-draining, rich soil"
+    }
+  ],
+  "chemicals": [
+    {
+      "name": "Pyrethrin",
+      "type": "insecticide",
+      "activeIngredient": "Pyrethrin",
+      "description": "Natural insecticide from chrysanthemum",
+      "applicationRate": "Follow label instructions",
+      "safetyNotes": "Safe for organic use, minimal residue"
+    }
+  ],
+  "diagnostics": []
+}

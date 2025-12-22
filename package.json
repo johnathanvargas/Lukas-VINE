@@ -1,14 +1,35 @@
 {
-  "name": "lukas-vine",
-  "version": "1.0.0",
-  "description": "Lukas-VINE app",
-  "main": "server/index.js",
+  "name": "lukas-vine-monorepo",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Lukas-VINE Todoist-like monorepo with Next.js, TypeScript, and Prisma",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "worker"
+  ],
   "scripts": {
-    "start": "node server/index.js"
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:worker\"",
+    "dev:web": "cd apps/web && npm run dev",
+    "dev:worker": "cd worker && npm run dev",
+    "build": "npm run build:schema && npm run build:web && npm run build:worker",
+    "build:schema": "cd packages/schema && npm run build",
+    "build:web": "cd apps/web && npm run build",
+    "build:worker": "cd worker && npm run build",
+    "db:migrate": "cd packages/schema && npm run db:migrate",
+    "db:generate": "cd packages/schema && npm run db:generate",
+    "db:seed": "cd packages/schema && npm run db:seed",
+    "db:setup": "npm run db:migrate && npm run db:generate && npm run db:seed",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules worker/node_modules apps/*/.next"
   },
-  "dependencies": {
-    "express": "^4.18.2",
-    "@supabase/supabase-js": "^2.0.0",
-    "cors": "^2.8.5"
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }

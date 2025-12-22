@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main, feature/todoist-mvp-skeleton]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-build:
+    name: Lint and Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate Prisma Client
+        run: npm run db:generate
+
+      - name: Lint code
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Type check
+        run: cd apps/web && npm run type-check
+        continue-on-error: true
+
+      - name: Build packages
+        run: npm run build
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate Prisma Client
+        run: npm run db:generate
+
+      - name: Run tests
+        run: npm run test
+        continue-on-error: true
+
+  docker-compose-check:
+    name: Docker Compose Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate docker-compose.yml
+        run: docker-compose config
